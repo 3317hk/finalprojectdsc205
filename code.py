@@ -3,35 +3,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# --------------------------------------------------
-# PAGE SETUP
-# --------------------------------------------------
-
-st.set_page_config(
-    page_title="House Sales Analysis",
-    page_icon="🏠",
-    layout="wide"
-)
-
 st.title("🏠 House Sales Analysis")
 st.write(
     "This application compares two house-sales datasets "
     "and examines the factors associated with house sales."
 )
 
-# --------------------------------------------------
-# LOAD DATA FROM GITHUB
-# --------------------------------------------------
 
 file1_url = "https://raw.githubusercontent.com/3317hk/finalprojectdsc205/main/2015_brooklyn.xlsx"
 file2_url = "https://raw.githubusercontent.com/3317hk/finalprojectdsc205/main/2025_2026brooklyn.xlsx"
 
-df1 = pd.read_excel(file1_url)
-df2 = pd.read_excel(file2_url)
+df = pd.read_excel(file1_url)
+df = pd.read_excel(file2_url)
 
-# --------------------------------------------------
-# DATASET OVERVIEW
-# --------------------------------------------------
+
 
 st.header("1. Dataset Overview")
 
@@ -47,9 +32,7 @@ with col2:
     st.write(f"Number of houses: {len(df2)}")
     st.dataframe(df2.head())
 
-# --------------------------------------------------
-# FIND COMMON NUMERIC VARIABLES
-# --------------------------------------------------
+
 
 common_columns = list(
     set(df1.columns).intersection(df2.columns)
