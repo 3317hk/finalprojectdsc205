@@ -23,8 +23,8 @@ st.write(
 # LOAD DATA FROM GITHUB
 # --------------------------------------------------
 
-file1_url = "https://raw.githubusercontent.com/3317hk/finalprojectdsc205/main/file1.xlsx"
-file2_url = "https://raw.githubusercontent.com/3317hk/finalprojectdsc205/main/file2.xlsx"
+file1_url = "https://raw.githubusercontent.com/3317hk/finalprojectdsc205/main/2015_brooklyn.xlsx"
+file2_url = "https://raw.githubusercontent.com/3317hk/finalprojectdsc205/main/2025_2026brooklyn.xlsx"
 
 df1 = pd.read_excel(file1_url)
 df2 = pd.read_excel(file2_url)
