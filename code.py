@@ -6,7 +6,7 @@ st.title("🏠 Brooklyn House Sales")
 
 # Load the files
 df2015 = pd.read_excel("2015_brooklyn.xls", engine="xlrd")
-df2016 = pd.read_excel("2025_2026brooklyn.xlsx", engine="openpyxl")
+df202526 = pd.read_excel("2025_2026brooklyn.xlsx", engine="openpyxl")
 
 # Clean column names
 df2015.columns = df2015.columns.str.strip()
