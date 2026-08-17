@@ -97,9 +97,9 @@ if choice == "Year Built":
 
     st.subheader("Year Built vs Sale Price")
 
-    data = df2015[
-        ["YEAR BUILT", "SALE PRICE"]
-    ].dropna()
+    data = df2015.groupby(
+        "YEAR BUILT", ["SALE PRICE"]
+    ].mean()
     data = data.sort_values(
         ascending=False
     ).head(10)
