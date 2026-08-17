@@ -2,114 +2,100 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.title("🏠 Brooklyn House Sales Analysis")
+st.title("🏠 Brooklyn House Sales")
 
-# -----------------------------
-# LOAD DATA
-# -----------------------------
-
-df1 = pd.read_excel("2015_brooklyn.xls", engine="xlrd")
-df2 = pd.read_excel("2025_2026brooklyn.xlsx", engine="openpyxl")
+# Load the files
+df2015 = pd.read_excel("2015_brooklyn.xls", engine="xlrd")
+df2016 = pd.read_excel("2025_2026brooklyn.xlsx", engine="openpyxl")
 
 # Clean column names
-df1.columns = df1.columns.astype(str).str.strip().str.upper()
-df2.columns = df2.columns.astype(str).str.strip().str.upper()
+df2015.columns = df2015.columns.str.strip()
+df202526.columns = df202526.columns.str.strip()
 
-# -----------------------------
+# --------------------------------
 # HOUSE SALES COMPARISON
-# -----------------------------
+# --------------------------------
 
 st.header("1. 🏠 House Sales Comparison")
 
-col1, col2 = st.columns(2)
-
-with col1:
-    st.metric("2015 Houses", len(df1))
-
-with col2:
-    st.metric("2016 Houses", len(df2))
-
-st.subheader("Sales Price Comparison")
-
-# Make SALE PRICE numeric
-df1["SALE PRICE"] = pd.to_numeric(
-    df1["SALE PRICE"],
-    errors="coerce"
-)
-
-df2["SALE PRICE"] = pd.to_numeric(
-    df2["SALE PRICE"],
-    errors="coerce"
-)
+st.write("Number of houses sold:")
 
 col1, col2 = st.columns(2)
 
-with col1:
-    st.metric(
-        "2015 Average Sale Price",
-        f"${df1['SALE PRICE'].mean():,.0f}"
-    )
+col1.metric("2015", len(df2015))
+col2.metric("202526", len(df202526))
 
-with col2:
-    st.metric(
-        "2016 Average Sale Price",
-        f"${df2['SALE PRICE'].mean():,.0f}"
-    )
+# Make sale price numeric
+df2015["SALE PRICE"] = pd.to_numeric(
+    df2015["SALE PRICE"],
+    errors="coerce"
+)
 
-# -----------------------------
+df202526["SALE PRICE"] = pd.to_numeric(
+    df2016["SALE PRICE"],
+    errors="coerce"
+)
+
+# Remove zero prices
+sales2015 = df2015[df2015["SALE PRICE"] > 0]
+sales202526 = df202526[df202526["SALE PRICE"] > 0]
+
+# Average sale price
+col1, col2 = st.columns(2)
+
+col1.metric(
+    "2015 Average Sale Price",
+    f"${sales2015['SALE PRICE'].mean():,.0f}"
+)
+
+col2.metric(
+    "2025-26 Average Sale Price",
+    f"${sales202526['SALE PRICE'].mean():,.0f}"
+)
+
+# --------------------------------
 # FACTORS AFFECTING SALES
-# -----------------------------
+# --------------------------------
 
 st.header("2. 📈 Factors Affecting Sales")
 
-factor = st.radio(
-    "Select a factor:",
-    [
-        "Neighborhood",
-        "Year Built",
-        "Gross Square Feet"
-    ],
-    horizontal=True
+choice = st.radio(
+    "Choose a factor:",
+    ["Neighborhood", "Year Built", "Gross Square Feet"]
 )
 
-# -----------------------------
+# --------------------------------
 # NEIGHBORHOOD
-# -----------------------------
+# --------------------------------
 
-if factor == "Neighborhood":
+if choice == "Neighborhood":
 
-    st.subheader("🏘️ Neighborhood and Sales")
+    st.subheader("Neighborhood vs Sale Price")
 
-    neighborhood = (
-        df1.groupby("NEIGHBORHOOD")["SALE PRICE"]
-        .mean()
-        .sort_values(ascending=False)
-        .head(10)
-    )
+    data = df2015.groupby(
+        "NEIGHBORHOOD"
+    )["SALE PRICE"].mean()
 
-    st.bar_chart(neighborhood)
+    data = data.sort_values(
+        ascending=False
+    ).head(10)
 
-    st.write(
-        "This chart shows the average sale price "
-        "for the top 10 neighborhoods."
-    )
+    st.bar_chart(data)
 
-# -----------------------------
+# --------------------------------
 # YEAR BUILT
-# -----------------------------
+# --------------------------------
 
-elif factor == "Year Built":
+if choice == "Year Built":
 
-    st.subheader("🏠 Year Built and Sales")
+    st.subheader("Year Built vs Sale Price")
 
-    data = df1[
+    data = df2015[
         ["YEAR BUILT", "SALE PRICE"]
     ].dropna()
 
-    data = data[
-        (data["YEAR BUILT"] > 0) &
-        (data["SALE PRICE"] > 0)
-    ]
+    data = data[data["SALE PRICE"] > 0]
+    data = data[data["YEAR BUILT"] > 0]
 
     fig, ax = plt.subplots()
 
@@ -124,30 +110,20 @@ elif factor == "Year Built":
 
     st.pyplot(fig)
 
-    correlation = data["YEAR BUILT"].corr(
-        data["SALE PRICE"]
-    )
-
-    st.write(
-        f"Correlation: **{correlation:.3f}**"
-    )
-
-# -----------------------------
+# --------------------------------
 # GROSS SQUARE FEET
-# -----------------------------
+# --------------------------------
 
-elif factor == "Gross Square Feet":
+if choice == "Gross Square Feet":
 
-    st.subheader("📐 Gross Square Feet and Sales")
+    st.subheader("Gross Square Feet vs Sale Price")
 
-    data = df1[
+    data = df2015[
         ["GROSS SQUARE FEET", "SALE PRICE"]
     ].dropna()
 
-    data = data[
-        (data["GROSS SQUARE FEET"] > 0) &
-        (data["SALE PRICE"] > 0)
-    ]
+    data = data[data["SALE PRICE"] > 0]
+    data = data[data["GROSS SQUARE FEET"] > 0]
 
     fig, ax = plt.subplots()
 
@@ -161,12 +137,3 @@ elif factor == "Gross Square Feet":
     ax.set_title("Gross Square Feet vs Sale Price")
 
     st.pyplot(fig)
-
-    correlation = data["GROSS SQUARE FEET"].corr(
-        data["SALE PRICE"]
-    )
-
-    st.write(
-        f"Correlation: **{correlation:.3f}**"
-    )
-
