@@ -33,22 +33,7 @@ st.header("2. 📈 Factors Affecting Sales")
 
 st.subheader("Gross Square Feet vs Sale Price")
 
-# Convert columns to numbers
-df2015["Gross Square Feet"] = pd.to_numeric(
-    df2015["Gross Square Feet"],
-    errors="coerce"
-)
 
-df2015["SALE PRICE"] = pd.to_numeric(
-    df2015["SALE PRICE"],
-    errors="coerce"
-)
-
-# Remove missing and zero values
-data = df2015[
-    (df2015["GROSS SQUARE FEET"] > 0) &
-    (df2015["SALE PRICE"] > 0)
-]
 
 fig, ax = plt.subplots()
 
