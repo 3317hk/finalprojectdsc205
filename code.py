@@ -100,22 +100,11 @@ if choice == "Year Built":
     data = df2015[
         ["YEAR BUILT", "SALE PRICE"]
     ].dropna()
+ data = data.sort_values(
+        ascending=False
+    ).head(10)
 
-    data = data[data["SALE PRICE"] > 0]
-    data = data[data["YEAR BUILT"] > 0]
-
-    fig, ax = plt.subplots()
-
-    ax.scatter(
-        data["YEAR BUILT"],
-        data["SALE PRICE"]
-    )
-
-    ax.set_xlabel("Year Built")
-    ax.set_ylabel("Sale Price")
-    ax.set_title("Year Built vs Sale Price")
-
-    st.pyplot(fig)
+    st.bar_chart(data)
 
 if choice == "Gross Square Feet":
 
@@ -124,19 +113,8 @@ if choice == "Gross Square Feet":
     data = df2015[
         ["GROSS SQUARE FEET", "SALE PRICE"]
     ].dropna()
+ data = data.sort_values(
+        ascending=False
+    ).head(10)
 
-    data = data[data["SALE PRICE"] > 0]
-    data = data[data["GROSS SQUARE FEET"] > 0]
-
-    fig, ax = plt.subplots()
-
-    ax.scatter(
-        data["GROSS SQUARE FEET"],
-        data["SALE PRICE"]
-    )
-
-    ax.set_xlabel("Gross Square Feet")
-    ax.set_ylabel("Sale Price")
-    ax.set_title("Gross Square Feet vs Sale Price")
-
-    st.pyplot(fig)
+    st.bar_chart(data)
