@@ -8,7 +8,7 @@ st.title("🏠 Brooklyn House Sales Analysis")
 df2015 = pd.read_excel("2015_brooklyn.xls", engine="xlrd")
 df2025 = pd.read_excel("2025_2026brooklyn.xlsx", engine="openpyxl")
 
-st.write(df2015.columns.tolist())
+
 
 # Clean column names
 df2015.columns = df2015.columns.str.strip().str.upper()
