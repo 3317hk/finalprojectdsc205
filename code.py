@@ -31,35 +31,6 @@ with col1:
 with col2:
     st.metric("2025-2026", len(df2))
 
-
-    st.bar_chart(neighborhood_sales)
-
-    st.write(
-        "This chart shows the average house sale price "
-        "for the 15 neighborhoods with the highest average sales."
-    )
-
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-
-st.title("🏠 Brooklyn House Sales Analysis")
-
-# -----------------------------
-# LOAD DATA
-# -----------------------------
-
-df1 = pd.read_excel("2015_brooklyn.xls", engine="xlrd")
-df2 = pd.read_excel("2016_brooklyn.xlsx", engine="openpyxl")
-
-# Clean column names
-df1.columns = df1.columns.astype(str).str.strip().str.upper()
-df2.columns = df2.columns.astype(str).str.strip().str.upper()
-
-# -----------------------------
-# HOUSE SALES COMPARISON
-# -----------------------------
-
 st.header("1. 🏠 House Sales Comparison")
 
 col1, col2 = st.columns(2)
