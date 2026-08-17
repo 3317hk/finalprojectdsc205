@@ -6,7 +6,7 @@ st.title("🏠 House Sales Analysis")
 
 # Load the two Excel files
 df1 = pd.read_excel("2015_brooklyn.xls")
-
+df2= pd.read_excel("2025_2026brooklyn.xlsx")
 
 # -----------------------------------
 # HOUSE SALES COMPARISON
