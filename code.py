@@ -26,37 +26,6 @@ col1, col2 = st.columns(2)
 col1.metric("2015", len(df2015))
 col2.metric("202526", len(df202526))
 
-# Make sale price numeric
-df2015["SALE PRICE"] = pd.to_numeric(
-    df2015["SALE PRICE"],
-    errors="coerce"
-)
-
-df202526["SALE PRICE"] = pd.to_numeric(
-    df2016["SALE PRICE"],
-    errors="coerce"
-)
-
-# Remove zero prices
-sales2015 = df2015[df2015["SALE PRICE"] > 0]
-sales202526 = df202526[df202526["SALE PRICE"] > 0]
-
-# Average sale price
-col1, col2 = st.columns(2)
-
-col1.metric(
-    "2015 Average Sale Price",
-    f"${sales2015['SALE PRICE'].mean():,.0f}"
-)
-
-col2.metric(
-    "2025-26 Average Sale Price",
-    f"${sales202526['SALE PRICE'].mean():,.0f}"
-)
-
-# --------------------------------
-# FACTORS AFFECTING SALES
-# --------------------------------
 
 st.header("2. 📈 Factors Affecting Sales")
 
