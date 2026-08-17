@@ -36,7 +36,7 @@ st.subheader("Factors Affecting Sales")
 
 fig, ax = plt.subplots()
 
-correlation.sort_values().plot.barh(ax=ax)
+
 
 ax.set_xlabel("Correlation")
 ax.set_ylabel("Factor")
