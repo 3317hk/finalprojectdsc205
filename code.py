@@ -5,13 +5,14 @@ import matplotlib.pyplot as plt
 st.title("🏠 Brooklyn House Sales Analysis")
 
 # Load data
-df2015 = pd.read_excel("2015_brooklyn.xls", engine="xlrd")
+df2015 = pd.read_excel("2015_brooklyn.xls", engine="xlrd", header=4)
 df2025 = pd.read_excel("2025_2026brooklyn.xlsx", engine="openpyxl")
-st.write("2015 Columns:", list(df2015.columns))
+
 
 # Clean column names
-df2015.columns = df2015.columns.str.strip().str.upper()
-df2025.columns = df2025.columns.str.strip().str.upper()
+# Strip spaces, replace newlines, and uppercase column names
+df2015.columns = df2015.columns.astype(str).str.replace(r'\s+', ' ', regex=True).str.strip().str.upper()
+df2025.columns = df2025.columns.astype(str).str.replace(r'\s+', ' ', regex=True).str.strip().str.upper()
 
 # Ensure numeric data types for plotting (handles commas, spaces, or non-numeric strings)
 numeric_cols = ["GROSS SQUARE FEET", "SALE PRICE", "YEAR BUILT"]
