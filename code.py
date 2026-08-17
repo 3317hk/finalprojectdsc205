@@ -27,7 +27,7 @@ col2.metric("202526", len(df202526))
 
 # Make sale price numeric
 df2015["SALE PRICE"] = pd.to_numeric(
-    df2015['Sale Price'],
+    df2015['SALE PRICE'],
     errors="coerce"
 )
 
