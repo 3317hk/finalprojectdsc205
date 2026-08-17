@@ -76,9 +76,6 @@ choice = st.radio(
     ["Neighborhood", "Year Built", "Gross Square Feet"]
 )
 
-# --------------------------------
-# NEIGHBORHOOD
-# --------------------------------
 
 if choice == "Neighborhood":
 
@@ -93,25 +90,30 @@ if choice == "Neighborhood":
     ).head(10)
 
     st.bar_chart(data)
-if choice == "Year Built":
+
+elif choice == "Year Built":
 
     st.subheader("Year Built vs Sale Price")
 
     data = df2015.groupby(
-        "YEAR BUILT"), ["SALE PRICE"].mean()
+        "YEAR BUILT"
+    )["SALE PRICE"].mean()
+
     data = data.sort_values(
         ascending=False
     ).head(10)
 
     st.bar_chart(data)
 
-if choice == "Gross Square Feet":
+
+elif choice == "Gross Square Feet":
 
     st.subheader("Gross Square Feet vs Sale Price")
 
-    data = df2015[
-        ["GROSS SQUARE FEET", "SALE PRICE"]
-    ].dropna()
+    data = df2015.groupby(
+        "GROSS SQUARE FEET"
+    )["SALE PRICE"].mean()
+
     data = data.sort_values(
         ascending=False
     ).head(10)
