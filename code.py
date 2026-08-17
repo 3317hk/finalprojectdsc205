@@ -17,7 +17,7 @@ st.header("1. 🏠 House Sales Comparison")
 st.write("2015 Data")
 st.dataframe(df1.head())
 
-st.write("2016 Data")
+st.write("2025-2026 Data")
 st.dataframe(df2.head())
 
 # Show number of sales
@@ -29,46 +29,8 @@ with col1:
     st.metric("2015", len(df1))
 
 with col2:
-    st.metric("2016", len(df2))
+    st.metric("2025-2026", len(df2))
 
-
-# -----------------------------------
-# FIND SALES COLUMN
-# -----------------------------------
-
-st.header("2. 📈 Factors Affecting Sales")
-
-st.write("Columns in the dataset:")
-
-st.write(df1.columns.tolist())
-
-# Select the sales column
-sales_column = st.selectbox(
-    "Select the sales column:",
-    df1.select_dtypes(include="number").columns
-)
-
-# -----------------------------------
-# CORRELATION
-# -----------------------------------
-
-correlation = df1.select_dtypes(
-    include="number"
-).corr()[sales_column]
-
-correlation = correlation.drop(sales_column)
-
-st.subheader("Factors Related to Sales")
-
-st.dataframe(
-    correlation.sort_values(
-        ascending=False
-    )
-)
-
-# -----------------------------------
-# BAR CHART
-# -----------------------------------
 
 st.subheader("Factors Affecting Sales")
 
