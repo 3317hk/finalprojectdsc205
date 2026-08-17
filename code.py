@@ -43,3 +43,91 @@ ax.set_ylabel("Factor")
 ax.set_title("Factors Affecting House Sales")
 
 st.pyplot(fig)
+
+# --------------------------------
+# FACTORS AFFECTING SALES
+# --------------------------------
+
+st.header("2. 📈 Factors Affecting Sales")
+
+factor = st.radio(
+    "Choose a factor:",
+    ["Location", "Neighborhood", "Age of House"],
+    horizontal=True
+)
+
+# --------------------------------
+# LOCATION
+# --------------------------------
+
+if factor == "Location":
+
+    st.subheader("📍 Location and House Sales")
+
+    location_sales = (
+        df1.groupby("Location")["Sales"]
+        .mean()
+        .sort_values(ascending=False)
+    )
+
+    st.bar_chart(location_sales)
+
+    st.write(
+        "This graph compares the average house sales "
+        "for different locations."
+    )
+
+
+# --------------------------------
+# NEIGHBORHOOD
+# --------------------------------
+
+elif factor == "Neighborhood":
+
+    st.subheader("🏘️ Neighborhood and House Sales")
+
+    neighborhood_sales = (
+        df1.groupby("Neighborhood")["Sales"]
+        .mean()
+        .sort_values(ascending=False)
+    )
+
+    st.bar_chart(neighborhood_sales)
+
+    st.write(
+        "This graph compares the average house sales "
+        "across different neighborhoods."
+    )
+
+
+# --------------------------------
+# AGE OF HOUSE
+# --------------------------------
+
+elif factor == "Age of House":
+
+    st.subheader("🏠 Age of House and Sales")
+
+    st.scatter_chart(
+        df1,
+        x="Age",
+        y="Sales"
+    )
+
+    correlation = df1["Age"].corr(df1["Sales"])
+
+    st.metric(
+        "Correlation between Age and Sales",
+        f"{correlation:.3f}"
+    )
+
+    if correlation > 0:
+        st.write(
+            "There is a positive relationship between "
+            "house age and sales."
+        )
+    else:
+        st.write(
+            "There is a negative relationship between "
+            "house age and sales."
+        )
