@@ -34,8 +34,8 @@ st.header("2. 📈 Factors Affecting Sales")
 st.subheader("Gross Square Feet vs Sale Price")
 
 # Convert columns to numbers
-df2015["GROSS SQUARE FEET"] = pd.to_numeric(
-    df2015["GROSS SQUARE FEET"],
+df2015["Gross Square Feet"] = pd.to_numeric(
+    df2015["Gross Square Feet"],
     errors="coerce"
 )
 
