@@ -100,7 +100,7 @@ if choice == "Year Built":
     data = df2015[
         ["YEAR BUILT", "SALE PRICE"]
     ].dropna()
- data = data.sort_values(
+    data = data.sort_values(
         ascending=False
     ).head(10)
 
@@ -113,7 +113,7 @@ if choice == "Gross Square Feet":
     data = df2015[
         ["GROSS SQUARE FEET", "SALE PRICE"]
     ].dropna()
- data = data.sort_values(
+    data = data.sort_values(
         ascending=False
     ).head(10)
 
