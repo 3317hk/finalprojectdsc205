@@ -38,8 +38,8 @@ st.subheader("Gross Square Feet vs Sale Price")
 fig, ax = plt.subplots()
 
 ax.scatter(
-    df["GROSS SQUARE FEET"],
-    df["SALE PRICE"]
+    df2015["GROSS SQUARE FEET"],
+    df2015["SALE PRICE"]
 )
 
 ax.set_xlabel("Gross Square Feet")
