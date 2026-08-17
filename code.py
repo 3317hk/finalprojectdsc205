@@ -38,8 +38,8 @@ st.subheader("Gross Square Feet vs Sale Price")
 fig, ax = plt.subplots()
 
 ax.scatter(
-    data["GROSS SQUARE FEET"],
-    data["SALE PRICE"]
+    df["GROSS SQUARE FEET"],
+    df["SALE PRICE"]
 )
 
 ax.set_xlabel("Gross Square Feet")
@@ -54,21 +54,12 @@ st.pyplot(fig)
 
 st.subheader("Year Built vs Sale Price")
 
-df2015["YEAR BUILT"] = pd.to_numeric(
-    df2015["YEAR BUILT"],
-    errors="coerce"
-)
-
-data2 = df2015[
-    (df2015["YEAR BUILT"] > 0) &
-    (df2015["SALE PRICE"] > 0)
-]
 
 fig, ax = plt.subplots()
 
 ax.scatter(
-    data2["YEAR BUILT"],
-    data2["SALE PRICE"]
+    df["YEAR BUILT"],
+    df["SALE PRICE"]
 )
 
 ax.set_xlabel("Year Built")
