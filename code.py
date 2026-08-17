@@ -52,10 +52,7 @@ if factor == "Neighborhood":
     st.subheader("🏘️ Neighborhood vs House Sales")
 
     neighborhood_sales = (
-        df1.groupby("NEIGHBORHOOD")["SALE PRICE"]
-        .mean()
-        .sort_values(ascending=False)
-        .head(15)
+        df1.groupby("NEIGHBORHOOD")["SALE PRICE"].mean().sort_values(ascending=False).head(15)
     )
 
     st.bar_chart(neighborhood_sales)
