@@ -71,3 +71,72 @@ ax.set_ylabel("Sale Price ($)")
 ax.set_title("Year Built vs Sale Price (2015)")
 
 st.pyplot(fig)  # Removed trailing period
+choice = st.radio(
+    "Choose a factor:",
+    ["Neighborhood", "Year Built", "Gross Square Feet"]
+)
+
+# --------------------------------
+# NEIGHBORHOOD
+# --------------------------------
+
+if choice == "Neighborhood":
+
+    st.subheader("Neighborhood vs Sale Price")
+
+    data = df2015.groupby(
+        "NEIGHBORHOOD"
+    )["SALE PRICE"].mean()
+
+    data = data.sort_values(
+        ascending=False
+    ).head(10)
+
+    st.bar_chart(data)
+if choice == "Year Built":
+
+    st.subheader("Year Built vs Sale Price")
+
+    data = df2015[
+        ["YEAR BUILT", "SALE PRICE"]
+    ].dropna()
+
+    data = data[data["SALE PRICE"] > 0]
+    data = data[data["YEAR BUILT"] > 0]
+
+    fig, ax = plt.subplots()
+
+    ax.scatter(
+        data["YEAR BUILT"],
+        data["SALE PRICE"]
+    )
+
+    ax.set_xlabel("Year Built")
+    ax.set_ylabel("Sale Price")
+    ax.set_title("Year Built vs Sale Price")
+
+    st.pyplot(fig)
+
+if choice == "Gross Square Feet":
+
+    st.subheader("Gross Square Feet vs Sale Price")
+
+    data = df2015[
+        ["GROSS SQUARE FEET", "SALE PRICE"]
+    ].dropna()
+
+    data = data[data["SALE PRICE"] > 0]
+    data = data[data["GROSS SQUARE FEET"] > 0]
+
+    fig, ax = plt.subplots()
+
+    ax.scatter(
+        data["GROSS SQUARE FEET"],
+        data["SALE PRICE"]
+    )
+
+    ax.set_xlabel("Gross Square Feet")
+    ax.set_ylabel("Sale Price")
+    ax.set_title("Gross Square Feet vs Sale Price")
+
+    st.pyplot(fig)
